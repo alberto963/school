@@ -1,7 +1,6 @@
 package hr_01_hiker;
 
-import java.io.*;
-import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class Solution {
@@ -15,7 +14,7 @@ public class Solution {
 
 		List<Integer> l = s.chars().mapToObj(c -> c == 'U' ? 1 : -1).collect(Collectors.toList());
 
-		System.out.println(l);
+		// System.out.println(l);
 		int i, h0 = 0, h = 0, c = 0;
 		for (i = 0; i < n; i++) {
 			h0 = h;
@@ -25,10 +24,5 @@ public class Solution {
 			}
 		}
 		return c;
-	}
-
-	public static void main(String[] args) throws IOException {
-		int result = countingValleys(8, "UDDDUDUU");
-		System.out.println(result);
 	}
 }
