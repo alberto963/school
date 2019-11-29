@@ -73,6 +73,7 @@ public class Main {
 	/*
 	 * complexity is O(N^3)
 	 */
+	@SuppressWarnings("unused")
 	private static Object resolveSmall(int n, String S, int K, int N) {
 
 		int c = N - K + 1;
@@ -170,6 +171,7 @@ public class Main {
 	 * 
 
 	 */
+	@SuppressWarnings("unused")
 	private static Object resolveSmart(int n, String S, int K, int N) {
 
 		System.out.printf("Case #%d: K=%d N=%d\n", n + 1, K, N);
