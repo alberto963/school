@@ -16,6 +16,7 @@ public class Solution {
 		// System.out.println(l);
 		
 		List<Integer> sl = l.subList(0,  n);
+		@SuppressWarnings("unused")
 		int r = sl.stream().reduce(0, (a, v) -> a + v);
 		// TODO: accumulator should keep two values, prev and curr -> investigate how to do
 		
