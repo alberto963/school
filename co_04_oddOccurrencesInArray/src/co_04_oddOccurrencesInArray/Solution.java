@@ -1,5 +1,8 @@
 package co_04_oddOccurrencesInArray;
 
+import java.util.Hashtable;
+import java.util.Map;
+
 public class Solution {
 
 	public static int max = 1000000000;
@@ -45,7 +48,7 @@ public class Solution {
 	public static int max0 = 1000001;
 
 	// O(n^2)
-	public static int solution(int[] a) {
+	public static int solutionHeavy(int[] a) {
 
 		for (int i = 0; i < a.length - 1; i++) {
 			if (a[i] != max0) {
@@ -64,5 +67,28 @@ public class Solution {
 		}
 
 		return a[a.length - 1];
+	}
+
+	public static Map<Integer, Integer> m = new Hashtable<Integer, Integer>();
+
+	private static Integer r;
+
+	public static int solution(int[] a) {
+		if (a.length == 1)
+			return a[0];
+
+		for (int i = 0; i < a.length; i++) {
+			Integer v = m.putIfAbsent(a[i], 1);
+			if (v != null) {
+				m.put(a[i], v + 1);
+			}
+		}
+
+		m.forEach((k, v) -> {
+			if (v.intValue() % 2 != 0)
+				r = k;
+		});
+
+		return r;
 	}
 }
