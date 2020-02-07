@@ -1,5 +1,8 @@
-A non-empty array A consisting of N integers is given. The array contains an odd number of elements, and each element of the array can be paired with another element that has the same value,
- except for one element that is left unpaired.
+A non-empty array A consisting of N integers is given.
+
+The array contains an odd number of elements, 
+and each element of the array can be paired with another element that has the same value,
+except for one element that is left unpaired.
 
 For example, in array A such that:
 
@@ -10,6 +13,7 @@ the elements at indexes 0 and 2 have value 9,
 the elements at indexes 1 and 3 have value 3,
 the elements at indexes 4 and 6 have value 9,
 the element at index 5 has value 7 and is unpaired.
+
 Write a function:
 
 class Solution { public int solution(int[] A); }

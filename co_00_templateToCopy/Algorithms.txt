@@ -1,0 +1,19 @@
+co_01: Find the smallest positive integer that does not occur in a given sequence.
+
+co_02: Find longest sequence of zeros in binary representation of an integer.
+
+co_03: Rotate an array to the right by a given number of steps.
+
+co_04: Find value not paired that occurs in odd number of elements all paired but one.
+
+co_05: Find the missing element in a given sequence of length N with values [1..(N + 1)], which means that exactly one element is missing.
+
+co_06: Minimize the value |(A[0] + ... + A[P-1]) - (A[P] + ... + A[N-1])| in a given sequence.
+
+co_07: Count minimal number of jumps (D) from position X to Y, which means find the number of multiple of D from X up to Y.
+
+co_08: Find the first element in a sequence where all the integers < X have occurred at least once. (Earliest time a frog can jump..)
+
+co_09: Find the smallest positive integer that does not occur in a given sequence. (same as co_01)
+
+co_10:
