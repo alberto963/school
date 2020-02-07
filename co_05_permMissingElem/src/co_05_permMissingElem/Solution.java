@@ -1,7 +1,7 @@
 package co_05_permMissingElem;
 
 public class Solution {
-	public static int max = 10;
+	public static int max = 1000000;
 	public static boolean[] mem;
 
 	public static int solution1Wrong(int[] a) {
