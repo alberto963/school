@@ -19,7 +19,10 @@ class TestSolution {
 
 	@Test
 	void onConditionShouldReturnArrayValue() {
-		int[] a = { 0, 0, 0 };
+		int[] a = new int[3];
+		a[0] = 0;
+		a[1] = 0;
+		a[2] = 0;
 
 		int x = 0;
 		int y = 0;
