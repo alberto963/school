@@ -1,0 +1,13 @@
+Write a function that given an array A on N integers return the largest integer K with k>0 such that both k and -k exists in array A.
+If there is no such integer, the value 0 should be returned.
+
+For example:
+
+given A = [3,2,-2,5,3] the function should return 3
+given A = [1,1,2,-1,2,-1]  the function should return 1
+given A = [1,2,3,-4]  the function should return 0
+
+Write an efficient algorithm with the following assumptions:
+
+N is an integer in the range [1...100,000]
+each element of the array A is an integer within the range[-1,000,000,000...1,000,000,000]
