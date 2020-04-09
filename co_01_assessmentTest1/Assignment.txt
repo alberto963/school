@@ -1,0 +1,13 @@
+There are people that every time they want to write a number they shuffle its digit in the following way:
+they alternatively write one digit from the front of the number and one digit from the back, then the second digit from the front and the second digit from the back,
+and so on until the length of the shuffled number is the same as the original one.
+
+Write a function that given a positive integer A returns its shuffled representation.
+
+For example, given A=123456 the function returns 162534
+
+Given A=130 it returns 103
+
+Assume a is an integer within the range [1...100,000,000]
+
+Performance is not part of the assessment, focus on the correctness of the solution
