@@ -1,0 +1,153 @@
+
+Example taken from analysis from CODJAM, but with simpler number and clearer analysis.
+
+This is for test set 1 of the CODEJAM exercise
+
+  F = 3			B=2  b1=5 b2=7
+  N = 8
+  
+  we have 2^3 = 8   => we can assign a different number for every column, i.e. [0...7]
+    
+  01234567      01234567            
+  01010101      01010-0-    <- b5 and b7 do not return their value
+  00110011		00110-1-	<- b5 and b7 do not return their value
+  00001111		00001-1-	<- b5 and b7 do not return their value
+  
+  So we have, when sending to worker the data sequences as result:
+  01234567      012345           
+  01010101  <-  010100   
+  00110011	<-	001101   
+  00001111	<-	000011  
+  
+  We need all attempts, when we have them all, we take the columns from the results:
+  
+    0 1 0 1 0 0   
+  	0 0 1 1 0 1   
+  	0 0 0 0 1 1 
+  
+  000 -> 0
+  100 -> 4
+  010 -> 2
+  110 -> 6
+  001 -> 1
+  011 -> 3
+  
+  with 3 bits numbers 0 to 7 => we miss 5 and 7 in the response
+  
+  Hence result: 5 7
+  
+  With the CODJAM analysis example:
+  F=10
+  N= 1024 B=? (not needed with this method, it is needed later when 2^F < N)
+  
+  0123456789ABCDEF... (we stop here, we would need 1024 cols)
+  010101010
+  001100110
+  000011110
+  000000001
+  000000000
+  000000000
+  000000000
+  000000000
+  000000000
+  000000000
+  
+  
+  ============================================
+  
+  
+  Example N=8, F=3 (B not needed)
+  How to implement it:
+  
+  if N=2^F
+  find all numbers from 0 to N in binary string format
+  000
+  001
+  010
+  011
+  100
+  101
+  111
+  
+  write them per column instead than usual per row:
+  
+  0 1 0 1 ...
+  0 0 1 1 ...
+  0 0 0 0 ...
+  
+  This was a bit complex task, just see the code
+  
+  Send the requests to the judge, take all results as columns, and find the integers in N that are missing. 
+  
+  ============================================
+  
+  For test set #2 there is a different case:
+  
+  we have: F = 5 (and we actually do not know N, we consider its max N=1024 and we do not know B, but we know B=MIN(15,N-1) and B>=1
+  
+  with F=5 we can have only 32 columns in our request (2^5=32), hence we cannot have all the columns in our requests
+  
+  Let's notice one important thing: we know that B<=15 in any case, hence if we send a request with 32 bits, it will never disappear completely.
+  (because we send 32 bits and as max 15 bits will be removed)
+  
+  Hence if we send a sequence of blocks of 0,1,...31, every block will never disappear completely.
+  
+  So we send a sequence of blocks:
+  
+  0,1,2,...,31, 0,1,2,..31,... up to N numbers in total 
+  
+  In the result some of the number in any block can be missing, hence we may have:
+  0,1,2,....30,0,1,...
+  
+  Let's note that when in a block a number is missing, if the next number is less than the missing one, it must be in the next block.
+  Let's prove it: suppose that a number x is removed and subsequent number is y with y is < than x: this cannot happen because blocks are of 32 numbers and no more than 15 numbers can be removed.
+  
+  So, we send a sequence of 0,1,...31 blocks, up to N columns. In the result, when there is a number that is less than the previous one, we are changing of block.
+  We now have to compute them: it should be the number of the block times 32 + the missing number in the block.
+  
+       block:  0          1
+  For example: 0,1,...31, 1,2,...
+  
+  Worker #32 is missing: 32*1 + 0
+  
+        block: 0          1          2
+  For example: 0,1,...31, 1,2,...31, 2,....
+  Worker #64 is missing: 32*2 + 0
+  Worker #65 is missing: 32*2 + 1
+  
+  And last consideration: we have B that is less or equal than 15, that is 2^4-1: this will allow to use sequences of blocks of 4 columns, 
+  (instead of 5) and just checking that when a number is less OR EQUAL than the previous one we have a block change.
+  
+  ============================================
+   
+  Possible alternative solution for simple case 
+  
+  F = 3			B=2  b1=4 b2=7
+  N = 8
+  
+  send>
+  01234567       01234567
+  01010101       0101-10-   <- 010110  b1=4 b2=7
+  00110011       0011-01-   <- 001101
+  00001111       0000-11-   <- 000011 
+  
+  It is the same, but by generating the requests 
+  
+  ============================================
+  
+  F=5
+
+                   xx             xxx                    xx                   xxx                    xxxxx                     128
+01010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+00110011001100110011001100110011001100110011001100110011001100110011001100110011001100110011001100110011001100110011001100110011
+00001111000011110000111100001111000011110000111100001111000011110000111100001111000011110000111100001111000011110000111100001111
+00000000111111110000000011111111000000001111111100000000111111110000000011111111000000001111111100000000111111110000000011111111
+  
+                   xx             xxx                    xx                   xxx                    xxxxx                     128
+0101010101010101010--1010101010101---10101010101010101010--1010101010101010101---10101010101010101010-----0101010101010101010101
+01010101010101010101010101010101101010101010101010101010101010101010101101010101010101010100101010101010101010101
+  
+                   xx             xxx                    xx                   xxx                    xxxxx                     128
+0011001100110011001--0110011001100---01100110011001100110--1001100110011001100---01100110011001100110-----1100110011001100110011
+00110011001100110010110011001100011001100110011001101001100110011001100011001100110011001101100110011001100110011
+  
