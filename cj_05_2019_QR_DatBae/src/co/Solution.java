@@ -131,7 +131,8 @@ public class Solution {
 			returnedColsAsInt[c] = Integer.parseUnsignedInt(returnedCols[c], 2);
 		}
 
-		// System.out.println("returnedColsAsInt=" + Arrays.toString(returnedColsAsInt));
+		// System.out.println("returnedColsAsInt=" +
+		// Arrays.toString(returnedColsAsInt));
 
 		int rows = (int) Math.pow(2, f);
 
