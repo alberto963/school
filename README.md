@@ -1,5 +1,5 @@
 # school
-It contains example projects used to learn java language.
+It contains example projects used to stay trained in java language.
 
 dg: Oracle Dev Gym
 
