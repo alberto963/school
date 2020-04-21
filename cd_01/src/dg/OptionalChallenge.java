@@ -1,4 +1,4 @@
-package cd_01;
+package dg;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -12,7 +12,8 @@ public class OptionalChallenge {
     public static void main(String... matrix) {
         Optional<String> optFromMatrix = Optional.ofNullable(finalZionValue);
 
-        var agentSmith = "Virus";
+        // var agentSmith = "Virus"; // Original code not been able to remove sysntax error
+        String agentSmith = "Virus";
 
         finalZionValue += Optional.ofNullable(agentSmith).orElse(getVisionFromOracle());
         finalZionValue += optFromMatrix.orElseGet(OptionalChallenge::getVisionFromOracle);

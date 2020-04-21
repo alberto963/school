@@ -1,4 +1,4 @@
-package dg_06;
+package dg;
 
 public class LogicalOperatorsChallenges {
 
