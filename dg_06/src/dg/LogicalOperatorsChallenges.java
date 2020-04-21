@@ -2,6 +2,8 @@ package dg;
 
 public class LogicalOperatorsChallenges {
 
+	// https://devgym.oracle.com/ quiz on ?
+
 	public static void main(String[] args) {
 
 		int spiderMan = 10;
@@ -25,8 +27,5 @@ public class LogicalOperatorsChallenges {
 		System.out.println(++spiderMan);
 		System.out.println(spiderMan++);
 		System.out.println(spiderMan);
-
-		
 	}
-
 }

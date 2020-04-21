@@ -3,6 +3,7 @@ package dg;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+// https://devgym.oracle.com/ quiz on Optional - OptionalChallenge
 
 public class OptionalChallenge {
 
@@ -12,7 +13,7 @@ public class OptionalChallenge {
     public static void main(String... matrix) {
         Optional<String> optFromMatrix = Optional.ofNullable(finalZionValue);
 
-        // var agentSmith = "Virus"; // Original code not been able to remove sysntax error
+        // var agentSmith = "Virus"; // Original code not been able to remove syntax error
         String agentSmith = "Virus";
 
         finalZionValue += Optional.ofNullable(agentSmith).orElse(getVisionFromOracle());
