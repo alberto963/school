@@ -5,17 +5,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.concurrent.TimeUnit;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 class TestSolution {
 
-//	@BeforeAll
-//	static void init() throws IOException {
-//		System.out.println("init!");
-//		Runtime.getRuntime()
-//				.exec("C:\\ProgramFilesMy\\eclipse\\eclipse\\plugins\\org.apache.ant_1.10.5.v20190526-1402\\bin\\ant");
-//	}
+	@BeforeAll
+	static void init() throws IOException {
+		System.out.println("init! building test.jar with ant");
+		Runtime.getRuntime().exec("C:\\ProgramFilesMy\\apache-ant-1.10.7\\bin\\ant.bat");
+		try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+	}
 
 	@Test
 	void testCase0() {
@@ -28,14 +34,13 @@ class TestSolution {
 			int i = 0;
 			String result = null;
 			while ((s = reader.readLine()) != null) {
-
 				System.out.println("The in/out stream is " + s);
 				if (i == 1) {
 					result = s;
 				}
 				i++;
 			}
-			
+
 			String r = "Judge return code: 0";
 			assertEquals(r, result);
 		} catch (IOException e) {
@@ -54,14 +59,13 @@ class TestSolution {
 			int i = 0;
 			String result = null;
 			while ((s = reader.readLine()) != null) {
-
 				System.out.println("The in/out stream is " + s);
 				if (i == 1) {
 					result = s;
 				}
 				i++;
 			}
-			
+
 			String r = "Judge return code: 0";
 			assertEquals(r, result);
 		} catch (IOException e) {
