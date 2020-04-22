@@ -1,4 +1,4 @@
-package dg_06;
+package dg;
 
 import java.util.List;
 import java.util.Random;
