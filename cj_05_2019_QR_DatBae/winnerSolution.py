@@ -151,7 +151,6 @@ def solve():
                 idx = 0
                 returnedFromStore[1][0] = 0 => 0 << 0 = 0 => r = 1|0 => r=1
                 r != 1 or 0 == 4 => idx = 1 want = 2
-
                 """
 
                 r |= (returnedFromStore[row][idx]) << row
