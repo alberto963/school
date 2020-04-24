@@ -156,6 +156,17 @@ class TestLocalSolution {
 	}
 
 	@Test
+	void onNis5AndFis2processResultShouldReturnValue() {
+		// b is not needed
+		@SuppressWarnings("unused")
+		int n = 5, b = 1, f = 2;
+
+		String[] stub = { "1010", "0110" };
+		String r = "0";
+		assertEquals(r, Solution.processResult(n, f, stub));
+	}
+	
+	@Test
 	void onNis4AndFis10processResultShouldReturnValue() {
 		// b is not needed
 		@SuppressWarnings("unused")

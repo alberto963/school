@@ -60,14 +60,14 @@ public class Solution {
 	public static String[] testStore(int n, int f) {
 
 		int cols = f;
-		int rows = (int) Math.pow(2, f);
-		char[][] m = new char[rows][f];
+		int rows = (int) Math.pow(2, cols);
+		char[][] m = new char[rows][cols];
 
 		for (int r = 0; r < rows; r++) {
 			String binaryString = Integer.toBinaryString(r);
 			int l = binaryString.length();
-			String format = l < f ? "%0" + (f - l) + "d%s" : "%s";
-			binaryString = l < f ? String.format(format, 0, binaryString) : binaryString;
+			String format = l < cols ? "%0" + (f - l) + "d%s" : "%s";
+			binaryString = l < cols ? String.format(format, 0, binaryString) : binaryString;
 			m[r] = binaryString.toCharArray();
 		}
 
