@@ -1,0 +1,280 @@
+caso 2 5
+
+1 2 3 4 5
+1 2 3 4 5
+
+Condizioni di non validita'
+r = r'
+c = c'
+r - c = r' - c'
+r + c = r' + c'
+
+2 3
+1 1
+
+Soluzione #1: In forma esaustiva (brute force o greedy algorithm):
+
+ prendiamo tutte le coppie r,c di una matrice NxM, prendiamo la prima e la seconda e applichiamo le condizioni,
+ se e' valida la utilizziamo, altrimenti passiamo alla successiva, fino a quando non ne troviamo una valida.
+ Trovata quella valida, ci ricordiamo che la abbiamo utilizzata e proseguiamo scartando quelle gia' utilizzate.
+ proseguiamo fino a quando le abbiamo passate tutte => POSSIBLE e le listiamo
+ se ci fermiamo perche' non ci sono piu' celle valide, ripartiamo dall'inizio con una cella successiva e ripetiamo.
+ Se abbiamo provato con tutte le celle come cella iniziale e iterativamente per le successive non abbiamo trovato soluzione => IMPOSSIBLE
+ 
+AP: Time to find exaustive solution: 18 min 43 secs
+
+Verifica della complessita':
+
+direi o(n&3), sul numero di celle, nel set due sono al massimo 400, e abbiamo un limite di 20 secondi per test set (100 test nel TS2, quindi 0.2 sec direi che o(n3) con 400 celle non ce la fa
+
+AP: Time to evaluate exaustive solution: 3 min 7 secs
+
+Soluzione #2: Pensiamo a una forma smart:
+
+x x x x x
+x x x x x
+
+non vanno bene le diagonali e le righe condivise, in una matrice NxM quali celle condividono piu' righe, colonne e diagonali?
+si potrebbe vedere per ogni cella quante altre celle questa condivide
+e potremmo ordinarle per numero di celle condivise, partendo da quella che ne condivide meno
+
+vediamo se ha senso
+
+1 2 3 4 5
+6 7 8 9 A
+
+tutte le celle condividono le righe e le colonne, la differenza puo' essere sulle diagonali?
+
+1 condivide solo 7
+2 condivide 6 e 8
+3 condivide 7 e 9 
+...
+quindi una di quelle negli angoli (per questa 2x5) e' la meno pesante
+partiamo da 1 e andiamo in 8 (la prima che troviamo che soddisfa le condizioni).
+Quindi avremo:
+
+X 2 3 4 5
+6 7 Y 9 A
+
+se ora ricalcoliamo le condivisioni (sulle diagonali) togliendo le celle gia' visitate, ma considerando la Y
+
+2 condivide solo 6
+3 condivide 7 e 9 (come prima)
+4 condivide A e Y (come prima)
+5 condivide solo 9
+Y condivide 2 e 4 => (come prima) possiamo andare su 5 (Z) che ne condivide meno
+
+X 2 3 4 Z
+6 7 Y 9 A
+
+2 condivide solo 6
+3 condivide 7 e 9 (come prima)
+4 solo A
+Z condivide solo 9 (come prima)
+6 condivide solo 2 
+7 condivide solo 3 
+
+saltiamo in 6 (W) che ne condivide meno
+
+X 2 3 4 Z
+W 7 Y 9 A
+ 
+4 solo A  (come prima) ed 'e l'unica
+
+Saltiamo su 4 (T)
+
+X 2 3 T Z
+W 7 Y 9 A
+
+7 condivide solo 3 => saltiamo su 7 (R)
+
+X 2 3 T Z
+W R Y 9 A ci fermiamo.... non va bene!
+
+
+AP: Time to evaluate this (wrong) solution: 33 min 54 secs
+
+Soluzione #3: Valutazione proposta di Alessio
+
+1 2 3 4 5
+6 7 8 9 A
+
+Partiamo da 1, andiamo la riga sotto e ci spostiamo di 1 meno il massimo
+
+1=>9
+Ritorniamo su e andiamo a 1 + il precedente (1)
+1=>9=>2
+Scendiamo e andiamo a 1 + il precedente
+1=>9=>2=>A
+Risaliamo e andiamo a 1 + il precedente
+1=>9=>2=>A=>3
+rimane cosi'
+x x x 4 5 
+6 7 8 x x
+da 3 scendiamo di uno e andiamo a 6
+1=>9=>2=>A=>3=>6
+e quindi proseguiamo sulle diagonali sfalsate di 1
+1=>9=>2=>A=>3=>6 =>4=>7=>5=>8
+
+1 2 3 4 5
+6 7 8 9 A
+
+Quindi la risposta valida sarebbe:
+Caso #1: POSSIBLE
+1 1
+2 4
+1 2
+2 5
+1 3
+2 1
+1 4
+2 2
+1 5
+2 3
+
+Funzionerebbe sempre?
+
+nel caso NxM con N>2 M>2 N pari e M dispari
+
+parto da 1,1 
+vado a 2,M-1
+vado a 1,2
+vado a 2,M
+vado a 1,3
+da qui proseguo sulle diagonali sfalsate
+2,1 => 1,4 => 2,2 => 1,5 ... 2,M-2,
+
+cosi ho fatto le prime N-2 righe, ripeto la cosa per gli altri (N-2)/2 blocchi
+
+nel caso NxM con N>2 M>2 N pari e M pari
+Esempio:
+1 2 3 4
+5 6 7 8
+
+partiamo da 1
+1=>7=> Non va bene
+1=>8=>2=> Non va bene
+
+partiamo da 2
+2=>8=>1=>7 Non va bene
+
+Sembra non si possa fare
+
+nel caso NxM con N>2 M>2 N dispari e M pari
+in questo caso se si inverte la matrice si torna al caso N pari e M dispari
+e si dovrebbe poter fare come prima.
+
+Quindi algoritmo sarebbe per i casi N>2 M>2 N pari e M dispari o  N dispari e M pari
+POSSIBLE con sequenze generate come sopra
+
+Per i casi N<=2, <=2 oppure N pari e M pari
+IMPOSSIBLE
+
+ultimo caso: N>2 M>2 N dispari e M dispari 
+
+1 2 3 4 5
+6 7 8 9 A
+B C D E F
+
+Esiste una soluzione?
+
+Mi fermo qui e guardo l'analisi
+
+AP: Time to evaluate this (uncertain Alessio) solution: 38 min 24 secs
+
+AP: Time to evaluate the code jam analysis: 10 min
+
+Note: 
+
+ - Solution #1 e' quella che alla fine l'analisi di codjam consiglia in generale, ho quindi sbagliato a valutare i tempi proposti in funzione della complessita'
+ - Soluzion #2 e' simile a quella proposta da code jam, che consiglia di vedere quante celle hanno vicini in linea e colonna e diagonale e cercare di ridurne il numero, ma non e' la mia
+ - Soluzion #3 puo' andare bene, ma puo' essere complicata l'implementazione perche' per ogni blocco bisogna andare a vedere che le regole siano rispettate anche tra mosse di blocchi diversi
+ 
+Per la soluzione #1 propsta dal team codjam, si puo' considerare anche di scegliere random la cella successiva e verificare le condizioni, per i numeri proposti puo' anche andare bene
+
+
+Implemento in Java la soluzione 1. (bisogna considerare il backtracking)
+
+Per ogni cella listo tutte quelle che sono valide come salto, quindi parto da una e ne scelgo un altra tra quelle valide, dando priorita' a quelle che ne hanno di piu'.
+Alla fine o le ho raggiunte tutte o ci sono alcune celle che on possono essere raggiunte.
+
+
+Tempo per implementare e tentare la soluzione 5h 28 min (soluzione errata, con i miei test semplici e' giusta)
+
+
+Rivista la soluzione, verificato che non e' corretta tempo speso 2h 14 min
+
+================================================================================
+
+Valutiamo l'indicazione data dall'analisi di Code Jam sul teorema di Ore (Ore's Theorem)
+
+Data la matrice RxC, quindi con R*C vertici, creiamo un grafo con tutti e soli collegamenti ammessi dalle regole.
+Utilizziamo il teorema di Ore per vedere se esiste un path Hamiltoniano.
+Se non esiste buttimao subito fuori IMPOSSIBLE.
+Se esiste applichiamo un algoritmo che trova un path hamiltoniano sul grafo e quella e' la soluzione.
+Nota: l'implementazione del teorema di Ore e' NP-completa
+Trovare tutti i path hamiltoniani in un grafo e' pure NP-Completo, ma a noi ne serve uno solo.
+
+Tempo speso: 33 min
+
+===================================================================================
+
+Formal statement del teorema di Ore
+
+Let G be a (finite and simple) graph with n >= 3 vertices. 
+We denote by deg v the degree of a vertex v in G, i.e. the number of incident edges in G to v. 
+Then, Ore's theorem states that if:
+
+deg v + deg w >= n for every pair of distinct non-adjacent vertices v and w of G
+ 
+then G is Hamiltonian.
+
+Algoritmo
+Palmer (1997) describes the following simple algorithm for constructing a Hamiltonian cycle in a graph meeting Ore's condition.
+
+Arrange the vertices arbitrarily into a cycle, ignoring adjacencies in the graph.
+While the cycle contains two consecutive vertices vi and vi + 1 that are not adjacent in the graph, 
+perform the following two steps:
+1) Search for an index j such that:
+  a) the four vertices vi, vi + 1, vj, and vj + 1 are all distinct and
+  b) the graph contains edges from vi to vj and from vj + 1 to vi + 1
+  
+2) Reverse the part of the cycle between vi + 1 and vj (inclusive).
+
+Each step increases the number of consecutive pairs in the cycle that are adjacent in the graph, 
+by one or two pairs (depending on whether vj and vj + 1 are already adjacent), 
+so the outer loop can only happen at most n times before the algorithm terminates, 
+where n is the number of vertices in the given graph. 
+
+By an argument similar to the one in the proof of the theorem, the desired index j must exist, 
+or else the nonadjacent vertices vi and vi + 1 would have too small a total degree. 
+Finding i and j, and reversing part of the cycle, can all be accomplished in time O(n). 
+Therefore, the total time for the algorithm is O(n2), matching the number of edges in the input graph.
+
+
+Non implementati algoritmi sopra, trovato un algoritmo su internet che trova il ciclo hamiltoniano, ma sembra andare in loop con r>=9 e c>=9
+Funziona con i casi piu' semplici
+
+Tempo speso: 4h 10 min
+
+===================================================================================
+
+verifica teorrema di Ore
+
+tempo speso 45 minuti
+
+==============================================================
+https://mathworld.wolfram.com/HamiltonianPath.html
+https://www.sciencedirect.com/science/article/pii/0166218X85900113
+
+==============================================================
+NOTA: bisogna trovare 'solo' un path hamiltoniano, NON un ciclo 
+(un grafo e' hamiltoniano se ha almeno un ciclo hamiltoniano, 
+il teorema di Ore fornisce una condizione per il grafo hamiltoniano)
+ 
+
+
+
+
+
+
