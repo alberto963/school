@@ -1,5 +1,5 @@
 # school
-It contains example projects used to stay trained in java language.
+It contains example projects used to stay trained in java language. 
 
 dg: Oracle Dev Gym
 
@@ -10,3 +10,5 @@ cj: Java Code Jam
 hr: HackerRank
 
 co: Codility
+
+Using Eclipse as IDE
