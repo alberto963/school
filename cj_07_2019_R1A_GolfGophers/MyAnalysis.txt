@@ -1,0 +1,61 @@
+Esempio:
+
+Supp G=? (da trovare) con G <= 100 (M)
+
+N=10 (n. di tentativi)
+
+T0: 2 3 4 5 5 6 7 8 9 A B C D E F G H I
+R0: 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 0 0
+
+T1: 3 2 4 5 5 6 7 8 9 A B C D E F G H I
+R1: 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+
+Noto che per ogni 'mulino' m possiamo dire il numero di 'scoiattoli' s o un suo multiplo che lo hanno visitato
+
+Ad esempio, in R0, abbiamo:
+	 il 'mulino' 0-esimo e' stato visitato da almeno 1 'scoiattolo' oppure 3, 5, ...
+	 il 'mulino' 1-esimo e' stato visitato da 0 'scoiattolo' oppure 3, 6, ...
+	 
+in R1 analogamente:
+ 	m0 e' stato visitato da s=1 oppure 4, 7, ...
+ 	m1 e' stao visitato da s=0 oppure 2, 4, ...
+ 	
+ in generale, per un dato m, con n elementi, che si trova in posizione p, questo puo' essere stato visitato n-p + k * n volte, 
+   con k>=0 e tale che n-p + k * n <= M (M e' il numero max di 'scoiattoli')
+       2 <= n <= 18
+       0 <= p < n
+    Quindi Gj = n*(k+1)-p  con k>=0, 2<=n<=18, 0<=p<n, 18>j>0
+ 
+ Quindi G = somme indice j di Gj per j che va da 0 a 17
+ 
+ Pb: come eliminare i multipli? cioe' come sapere k? considerare che G <= M e Gj <= M 
+ 
+ Tempo speso per questa analisi: 1h 8m
+ 
+ Trovare una soluzione
+ 
+ Si puo' pensare di generare tutte le possibili combinazioni per ogni G <= M di 18 interi tali che la loro somma sia G ed ogni singolo elemento sia minore o uguale a G
+ 
+ Ad esempio:
+ 
+ con G=1 => C1 = ['1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0', '0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0', ... , '0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1']
+ con G=2 => C2 = ['2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0', '0 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0', ... , '1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0', '1 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0', ...]
+ e via di seguito 
+ 
+ Domanda 1: quanti sono? probabilmente troppi, da vedere
+ 
+ Comunque, se li abbiamo, possiamo generare a caso i mulini, e vedere quali combinazioni risultato si possono eliminare
+ 
+ ad esempio, dato T e R:
+ T0: 2 3 4 5 5 6 7 8 9 A B C D E F G H I
+ R0: 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 0 0
+ 
+ possiamo eliminare tutte quelle combinazioni C che non risultano compatibili con R0, ad esempio C2[0] nell'esempio sopra.
+ 
+ Ripetiamo per tutti i tentativi che abbiamo e vediamo cosa resta.
+ 
+ Domnanda 2: arriveremo ad una risposta univoca? La risposta dipende dalle configurazioni (n. di elementi in ogni mulino)?
+ 
+ Tempo speso per questa idea di soluzione: 35m
+ 
+ 
