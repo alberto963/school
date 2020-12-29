@@ -1,0 +1,6 @@
+Sembra facile: basta prendere le due righe e vedere se ci sono 0, 1 , o piu' valori uguali: 
+nel caso 1 esatto e' quello il valore corretto della carta da indovinare, nel caso piu' di uno e' bad magician mentre nel caso 0 e' Volonteer cheated
+
+La mia analisi coincide con quella di Cod jam
+
+Tempo complessivo speso: circa 2.30 h, test passato
